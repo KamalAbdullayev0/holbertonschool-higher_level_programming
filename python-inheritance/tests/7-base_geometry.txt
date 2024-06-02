@@ -1,44 +1,61 @@
-============================================
-How to use 7-base_geometry_1.txt
-============================================
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> integer_validator = BaseGeometry.integer_validator
 
-This module contains tests for the BaseGeometry and Rectangle classes.
+>>> integer_validator = BaseGeometry().integer_validator
+>>> integer_validator("test", 10)
+>>> integer_validator("test", 1)
+>>> integer_validator("test", 0)
+Traceback (most recent call last):
+...
+ValueError: test must be greater than 0
 
-:: Importing BaseGeometry and Rectangle
-   >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
-   >>> Rectangle = __import__('7-base_geometry').Rectangle
+>>> integer_validator("test", -5)
+Traceback (most recent call last):
+...
+ValueError: test must be greater than 0
 
-:: Creating an instance of BaseGeometry
-   >>> bg = BaseGeometry()
+>>> integer_validator("test", 3.14)
+Traceback (most recent call last):
+...
+TypeError: test must be an integer
 
-:: Testing area method
-   >>> bg.area()
-   Traceback (most recent call last):
-   Exception: area() is not implemented
+>>> integer_validator("test", "hello")
+Traceback (most recent call last):
+...
+TypeError: test must be an integer
 
-:: Testing integer_validator method with invalid input
-   >>> bg.integer_validator("age", "twenty")
-   Traceback (most recent call last):
-   TypeError: age must be an integer
+>>> geometry = BaseGeometry()
+>>> geometry.area()
+Traceback (most recent call last):
+...
+Exception: area() is not implemented
 
-   >>> bg.integer_validator("age", -10)
-   Traceback (most recent call last):
-   ValueError: age must be greater than 0
+>>> integer_validator()
+Traceback (most recent call last):
+...
+TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
 
-:: Creating an instance of Rectangle
-   >>> r = Rectangle(3, 6)
-   >>> print(r)
-   [Rectangle] 3/6
+>>> geometry.integer_validator("age", (4,))
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
 
-:: Testing area method of Rectangle
-   >>> r.area()
-   18
+>>> geometry.integer_validator("age", True)
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
 
-:: Testing invalid inputs for Rectangle
-   >>> r = Rectangle("3", 6)
-   Traceback (most recent call last):
-   TypeError: width must be an integer
+>>> geometry.integer_validator("age", [3])
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
 
-   >>> r = Rectangle(3, -6)
-   Traceback (most recent call last):
-   ValueError: height must be greater than 0
+>>> geometry.integer_validator("age", {3, 4})
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+>>> geometry.integer_validator("age", None)
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
